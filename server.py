@@ -6,15 +6,15 @@ app = Flask(__name__)
 
 @app.route("/")
 def hello():
-    return "Hello World! <br><a href='/status'>Статус</a>"
+    return "Сервер запущен! <br><a href='/status'>Статус</a>"
 
 
 @app.route("/status")
 def status():
-    status = True
-    name = "my_messenger"
-    time = datetime.now()
-    return "Я смог запустить свой сервер: " + name + " для курса!"
+    return {'status': True,
+            'name': "my_messenger",
+            'time': datetime.now()
+            }
 
 
-app.run()
+app.run(debug=True)
