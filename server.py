@@ -1,4 +1,5 @@
 from flask import Flask
+from datetime import datetime
 
 app = Flask(__name__)
 
@@ -10,7 +11,10 @@ def hello():
 
 @app.route("/status")
 def status():
-    return "Hello World!"
+    status = True
+    name = "my_messenger"
+    time = datetime.now()
+    return "Я смог запустить свой сервер: " + name + " для курса!"
 
 
 app.run()
