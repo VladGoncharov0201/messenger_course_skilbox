@@ -1,5 +1,6 @@
 from flask import Flask
-from datetime import datetime
+import time
+import json
 
 app = Flask(__name__)
 
@@ -11,10 +12,10 @@ def hello():
 
 @app.route("/status")
 def status():
-    return {'status': True,
-            'name': "my_messenger",
-            'time': datetime.now()
-            }
+    return json.dumps({'status': True,
+                       'name': "my_messenger",
+                       'time': time.ctime()
+                       })
 
 
 app.run(debug=True)
