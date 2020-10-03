@@ -1,8 +1,12 @@
-from flask import Flask
+from flask import Flask, Response, request
+from datetime import datetime
 import time
-import json
 
 app = Flask(__name__)
+db = [
+    {'text': 'Hi', 'author': 'Jack', 'time': time.time()},
+    {'text': 'Hi!', 'author': 'Max', 'time': time.time()},
+]
 
 
 @app.route("/")
@@ -12,10 +16,36 @@ def hello():
 
 @app.route("/status")
 def status():
-    return json.dumps({'status': True,
-                       'name': "my_messenger",
-                       'time': time.ctime()
-                       })
+    dn = datetime.now()
+    return {'status': True,
+            'name': "my_messenger",
+            'time': str(dn)
+            }
+
+
+@app.route("/send_message", methods=['POST'])
+def send_message():
+    data = request.json
+    if not isinstance(data, dict):
+        return Response('not json', 400)
+
+    text = data.get('text')
+    author = data.get('author')
+
+    if isinstance(author, str):
+        db.append({
+            'text': text,
+            'author': author,
+            'time': time.time()
+        })
+        return Response('ok')
+    else:
+        return Response('wrong format', 404)
+
+
+@app.route("/get_message")
+def get_message():
+    return {'messages': db}
 
 
 app.run(debug=True)
