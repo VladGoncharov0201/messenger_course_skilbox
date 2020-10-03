@@ -1,9 +1,20 @@
 import requests
+import time
+from datetime import datetime
 
-response = requests.get('http://127.0.0.1:5000/get_message')
+after = 0
 
-if response.status_code == 200:
-    messages = response.json()['messages']
+while True:
+    response = requests.get('http://127.0.0.1:5000/get_message', params={'after': after})
 
-    for messages in messages:
-        print(messages)
+    if response.status_code == 200:
+        messages = response.json()['messages']
+
+        for message in messages:
+            after = message['time']
+            ftime = datetime.fromtimestamp(message['time']).strftime('%d.%m.%Y %H:%M:%S')
+            print(ftime, message['author'])
+            print(message['text'])
+            print()
+
+    time.sleep(1)

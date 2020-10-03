@@ -40,12 +40,21 @@ def send_message():
         })
         return Response('ok')
     else:
-        return Response('wrong format', 404)
+        return Response('wrong format', 400)
 
 
 @app.route("/get_message")
 def get_message():
-    return {'messages': db}
+    after = request.args.get('after', '0')
+    try:
+        after = float(after)
+    except:
+        return Response('wrong format', 400)
+
+
+    new_messages = [message for message in db if message['time'] > after]
+
+    return {'messages': new_messages}
 
 
 app.run(debug=True)
