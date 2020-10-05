@@ -51,7 +51,6 @@ def get_message():
     except:
         return Response('wrong format', 400)
 
-
     new_messages = [message for message in db if message['time'] > after]
 
     return {'messages': new_messages}
