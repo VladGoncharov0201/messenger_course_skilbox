@@ -18,7 +18,11 @@ class ExampleApp(QtWidgets.QMainWindow, clientui.Ui_MainWindow):
 
 
     def get_messages(self):
-        response = requests.get('http://127.0.0.1:5000/get_message', params={'after': self.after})
+        try:
+            response = requests.get('http://127.0.0.1:5000/get_message', params={'after': self.after})
+
+        except:
+            return
 
         if response.status_code == 200:
             messages = response.json()['messages']
