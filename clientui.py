@@ -48,4 +48,5 @@ class Ui_MainWindow(object):
         MainWindow.setWindowTitle(_translate("MainWindow", "My messenger"))
         self.label.setText(_translate("MainWindow", "My messenger"))
         self.lineEdit.setPlaceholderText(_translate("MainWindow", "Введите имя"))
+        self.textEdit.setPlaceholderText(_translate("MainWindow", "Введите сообщение..."))
         self.pushButton.setText(_translate("MainWindow", "Отправаить"))

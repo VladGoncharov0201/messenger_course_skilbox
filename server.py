@@ -4,8 +4,7 @@ import time
 
 app = Flask(__name__)
 db = [
-    {'text': 'Hi', 'author': 'Jack', 'time': time.time()},
-    {'text': 'Hi!', 'author': 'Max', 'time': time.time()},
+
 ]
 
 
